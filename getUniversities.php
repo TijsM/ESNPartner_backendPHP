@@ -10,7 +10,7 @@ $resultsFromDb = $uniCon->getAllUniverisities();
 
 foreach($resultsFromDb as $row){
     $id = $row[0];
-    $city = $row[1];
+    $cityId = $row[1];
     $country = $row[2];
     $latitude = $row[3];
     $longtitude = $row[4];
@@ -19,7 +19,7 @@ foreach($resultsFromDb as $row){
     
     $uniesJson->$id = new stdClass();
     $uniesJson->$id->id = $id;
-    $uniesJson->$id->city = $city;
+    $uniesJson->$id->cityId = $cityId;
     $uniesJson->$id->country = $country;
     $uniesJson->$id->longtitude = $longtitude;
     $uniesJson->$id->latitude = $latitude;

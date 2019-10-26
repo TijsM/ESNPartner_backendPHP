@@ -20,13 +20,12 @@ class UniversityConnection{
             while ($row = $stmnt->fetch()){
                 array_push($universitiesFromDatabase, 
                 [
-                    $row['univirsityId'],
-                    $row['city'],
+                    $row['universityId'],
+                    $row['cityId'],
                     $row['country'],
                     $row['latitude'],
                     $row['longtitude'],
                     $row['name']
-
                 ]);
             }
         }
