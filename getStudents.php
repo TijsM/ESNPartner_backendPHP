@@ -13,31 +13,24 @@ foreach ($resultFromDb as $row) {
     $id =  $row[0];
     $bio =  $row[1];
     $dateOfBirth=  $row[2];
-    $course =  $row[2];
-    $currentCity =  $row[3];
-    $currentCountry =  $row[4];
-    $currentSchool =  $row[5];
-    $email =  $row[6];
-    $firstName =  $row[7];
-    $lastName =  $row[8];
-    $upcomingCity =  $row[9];
-    $upcomingCountry =  $row[10];
-    $upcomingSchool =  $row[11];
+    $course =  $row[3];
+    $email =  $row[4];
+    $firstName =  $row[5];
+    $lastName =  $row[6];
+    $homeUniversityId = $row[7];
+    $upcomingUniversityId = $row[8];
 
     $studentsJson->$id = new stdClass();
     $studentsJson->$id->id = $id;
     $studentsJson->$id->bio = $bio;
     $studentsJson->$id->dateOfBirth = $dateOfBirth;
     $studentsJson->$id->course = $course;
-    $studentsJson->$id->currentCity = $currentCity;
-    $studentsJson->$id->currentCountry = $currentCountry;
-    $studentsJson->$id->currentSchool = $currentSchool;
     $studentsJson->$id->email = $email;
     $studentsJson->$id->firstName = $firstName;
     $studentsJson->$id->lastName = $lastName;
-    $studentsJson->$id->upcomingCity = $upcomingCity;
-    $studentsJson->$id->upcomingCountry=$upcomingCountry;
-    $studentsJson->$id->upcomingSchool = $upcomingSchool;
+    $studentsJson->$id->homeUniversityId = $homeUniversityId;
+    $studentsJson->$id->upcomingUniversityId = $upcomingUniversityId;
+
 }
 
 echo json_encode($studentsJson, JSON_PRETTY_PRINT);

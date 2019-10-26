@@ -16,6 +16,7 @@ class StudentConnection
             $stmt = $con->prepare("SELECT * FROM student");         // prepare the select statement
             $stmt->execute();                                       // execute the select statement
 
+            
             while ($row = $stmt->fetch()) {                         // loop through each row in the result from the database
                 array_push(
                     $studentsFromDatabase,
@@ -24,14 +25,11 @@ class StudentConnection
                         $row['bio'],
                         $row['dateOfBirth'],
                         $row['course'],
-                        $row['currentCity'],
-                        $row['currentCountry'],
                         $row['email'],
                         $row['firstName'],
                         $row['lastName'],
-                        $row['upcomingCity'],
-                        $row['upcomingCountry'],
-                        $row['upcomingSchool']
+                        $row['homeUniversityId'],
+                        $row['upcomingUniversityId'],
                     ]
                 );
             }
@@ -54,13 +52,12 @@ class StudentConnection
             $stmt->bindParam(':id', $id);
             $stmt->execute();
 
-            $row = $stmt->fetch();
+            $result = $stmt->fetch();
 
             $stmt = null;
             $db->disconnect($con);
 
-            return $row;
-
+            return $result;
         }
     }
 }
