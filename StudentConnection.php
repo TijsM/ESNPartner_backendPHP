@@ -60,4 +60,27 @@ class StudentConnection
             return $result;
         }
     }
+
+    function addStudent($userCredentials){
+
+        $db = new DB();
+        $con = $db->connect();
+
+        if($con){
+            $stmnt = $con->prepare("INSERT INTO `student`(`studentId`, `bio`, `dateOfBirth`, `course`, `email`, `firstName`, `lastName`, `homeUniversityId`, `upcomingUniversityId`) VALUES (NULL, :bio, :dateOfBirth, :course, :email, :firstName, :lastName, :homeUniversityId, :upcomingUniversityId)");
+            $stmnt->bindParam(':bio', $userCredentials['bio']);
+            $stmnt->bindParam(':dateOfBirth', $userCredentials['dateOfBirth']);
+            $stmnt->bindParam(':course', $userCredentials['course']);
+            $stmnt->bindParam(':email', $userCredentials['email']);
+            $stmnt->bindParam(':firstName', $userCredentials['firstName']);
+            $stmnt->bindParam(':lastName', $userCredentials['lastName']);
+            $stmnt->bindParam(':homeUniversityId', $userCredentials['homeUniversityId']);
+            $stmnt->bindParam(':upcomingUniversityId', $userCredentials['upcomingUniversityId']);
+        }
+
+        $stmnt->execute();
+
+        $stmt = null;
+        $db->disconnect($con);
+    }
 }

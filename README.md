@@ -1,1 +1,2 @@
-# ESNPartner_backendPHP
+# API for ESN-partner app
+
