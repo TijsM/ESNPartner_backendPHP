@@ -6,10 +6,7 @@ $studentCon = new StudentConnection();
 
 $studentsJson = new stdClass();
 
-
-
 $resultFromDb = $studentCon->getAllStudents();
-
 
 foreach ($resultFromDb as $row) {
 
@@ -45,15 +42,3 @@ foreach ($resultFromDb as $row) {
 
 echo json_encode($studentsJson, JSON_PRETTY_PRINT);
 
-
-
-
-
-
-
-// $studentsJson->$row[0]->bio = $row[1];
-// $studentsJson->$row[0]->dateOfBirth = $row[2];
-// $studentsJson->$row[0]->couse = $row[3];
-// $studentsJson->$row[0]->currentCity = $row[4];
-// $studentsJson->$row[0]->currentCountry = $row[5];
-// $studentsJson->$row[0]->currentSchool = $row[6];

@@ -39,7 +39,28 @@ class StudentConnection
             $stmt = null;                                            // empty the statement object
             $db->disconnect($con);                                   // close connection
 
-            return $studentsFromDatabase;        // return the result for use where list_of_students() is called
+            return $studentsFromDatabase;                            // return the result for use where list_of_students() is called
+        }
+    }
+
+
+    function getStudent($id){
+
+        $db = new DB();
+        $con = $db->connect();
+
+        if($con){
+            $stmt = $con->prepare("SELECT * FROM student WHERE studentId = :id");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+
+            $row = $stmt->fetch();
+
+            $stmt = null;
+            $db->disconnect($con);
+
+            return $row;
+
         }
     }
 }
