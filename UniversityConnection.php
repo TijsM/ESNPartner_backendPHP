@@ -4,29 +4,32 @@ require_once('Connection.php');
 
 
 
-class UniversityConnection{
-    function getAllUniverisities(){
+class UniversityConnection
+{
+    function getAllUniverisities()
+    {
         $db = new DB();
 
         $con = $db->connect();
 
-        if($con){
+        if ($con) {
             $universitiesFromDatabase = array();
 
             $stmnt = $con->prepare("SELECT * FROM university");
             $stmnt->execute();
 
 
-            while ($row = $stmnt->fetch()){
-                array_push($universitiesFromDatabase, 
-                [
-                    $row['universityId'],
-                    $row['cityId'],
-                    $row['country'],
-                    $row['latitude'],
-                    $row['longtitude'],
-                    $row['name']
-                ]);
+            while ($row = $stmnt->fetch()) {
+                array_push(
+                    $universitiesFromDatabase,
+                    [
+                        $row['universityId'],
+                        $row['cityId'],
+                        $row['latitude'],
+                        $row['longtitude'],
+                        $row['name']
+                    ]
+                );
             }
         }
 
@@ -36,11 +39,12 @@ class UniversityConnection{
         return $universitiesFromDatabase;
     }
 
-    function getUniversity($id){
+    function getUniversity($id)
+    {
         $db = new DB();
         $con = $db->connect();
-         
-        if($con){
+
+        if ($con) {
             $stmnt = $con->prepare("SELECT * FROM university WHERE universityId = :id");
             $stmnt->bindParam(':id', $id);
 
@@ -54,6 +58,31 @@ class UniversityConnection{
             $db->disconnect($con);
 
             return $result;
+        }
+    }
+
+    function addUniversity($universityCredentials)
+    {
+        $db = new DB();
+        $con = $db->connect();
+
+        echo $universityCredentials['cityId'];  
+        echo $universityCredentials['longtitude'];  
+        echo $universityCredentials['latitude'];  
+        echo $universityCredentials['cityName'];  
+
+        if ($con) {
+            $stmnt = $con->prepare("INSERT INTO `university`(`universityId`, `cityId`, `longtitude`, `latitude`, `name`) VALUES (null,:cityId,:longtitude, :latitude, :cityName)");
+            $stmnt->bindParam(':cityId', $universityCredentials['cityId']);
+            $stmnt->bindParam(':longtitude', $universityCredentials['longtitude']);
+            $stmnt->bindParam(':latitude', $universityCredentials['latitude']);
+            $stmnt->bindParam(':cityName', $universityCredentials['cityName']);
+
+            $stmnt->execute();
+
+
+            $stmnt = null;
+            $db->disconnect($con);
         }
     }
 }

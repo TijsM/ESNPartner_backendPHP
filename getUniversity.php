@@ -13,7 +13,7 @@ $resultsFromDb = $uniCon->getUniversity($id);
 
 $id =$resultsFromDb['universityId'];
 $cityId = $resultsFromDb['cityId'];
-$country = $resultsFromDb['country'];
+
 $latitude = $resultsFromDb['latitude'];
 $longtitude = $resultsFromDb['longtitude'];
 $name = $resultsFromDb['name'];
@@ -22,7 +22,6 @@ $name = $resultsFromDb['name'];
 $uniesJson->$id = new stdClass();
 $uniesJson->$id->id = $id;
 $uniesJson->$id->cityId = $cityId;
-$uniesJson->$id->country = $country;
 $uniesJson->$id->longtitude = $longtitude;
 $uniesJson->$id->latitude = $latitude;
 $uniesJson->$id->name = $name;
