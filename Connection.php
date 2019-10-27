@@ -5,9 +5,6 @@
             echo 'in test connection';
         }
 
-
-
-
         public function connect() {
             $server = 'localhost';
             $db = 'esn_partner';

@@ -19,6 +19,7 @@ foreach ($resultFromDb as $row) {
     $lastName =  $row[6];
     $homeUniversityId = $row[7];
     $upcomingUniversityId = $row[8];
+    $password = $row[9];
 
     $studentsJson->$id = new stdClass();
     $studentsJson->$id->id = $id;
@@ -30,6 +31,7 @@ foreach ($resultFromDb as $row) {
     $studentsJson->$id->lastName = $lastName;
     $studentsJson->$id->homeUniversityId = $homeUniversityId;
     $studentsJson->$id->upcomingUniversityId = $upcomingUniversityId;
+    $studentsJson->$id->password = $password;
 
 }
 

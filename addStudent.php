@@ -13,6 +13,7 @@ $firstName = $_POST['firstName'];
 $lastName = $_POST['lastName'];
 $homeUniversityId = $_POST['homeUniversityId'];
 $upcomingUniversityId = $_POST['upcomingUniversityId'];
+$password = $_POST['password'];
 
 $userCredentials = array(
     'bio' => $bio,
@@ -22,7 +23,8 @@ $userCredentials = array(
     'firstName' => $firstName,
     'lastName' => $lastName,
     'homeUniversityId' => $homeUniversityId,
-    'upcomingUniversityId' => $upcomingUniversityId
+    'upcomingUniversityId' => $upcomingUniversityId,
+    'password' => $password
 );
 
 
