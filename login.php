@@ -23,7 +23,6 @@ if ($passwordFromDb == $password) {
     $currentDateTime = new DateTime();
     $expirationDate = $currentDateTime->modify('1 hour');
 
-
    $studentCon->saveToken ($email, $token, $expirationDate->format('Y-m-d H:i:s'));
 
    $response = new stdClass();

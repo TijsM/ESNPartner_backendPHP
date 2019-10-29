@@ -101,29 +101,23 @@ class StudentConnection
     }
 
     function checkToken($id, $token){
-        $tokenIsValid = false;
+       
 
         $db = new DB();
         $con = $db->connect();
 
         if($con){
-            $stmnt = $con->prepare("SELECT jwtToken FROM student WHERE studentId = :id");
+            $stmnt = $con->prepare("SELECT jwtToken, expirationTime FROM student WHERE studentId = :id");
             $stmnt->bindParam(':id', $id);
         }
 
         $stmnt->execute();
         $result= $stmnt->fetch();
 
-        $tokenFromDb = $result['jwtToken'];
-    
-       if($token == $tokenFromDb){
-           $tokenIsValid = true;
-       }
-
         $stmnt=null;
         $db->disconnect($con);
 
-        return $tokenIsValid;
+        return $result;
     }
 
     function addStudent($userCredentials){
