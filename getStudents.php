@@ -1,39 +1,41 @@
 <?php
 
-require_once(__DIR__.'/mappers/studentConnection.php');
+require_once(__DIR__ . '/mappers/studentConnection.php');
+require_once(__DIR__ . '/help-methods/tokenChecker.php');
+require_once(__DIR__ . '/help-methods/sendErrorMessage.php');
 
-$studentCon = new StudentConnection();
+if (checkToken()) {
 
-$studentsJson = new stdClass();
+    $studentCon = new StudentConnection();
+    $studentsJson = new stdClass();
+    $resultFromDb = $studentCon->getAllStudents();
+    foreach ($resultFromDb as $row) {
 
-$resultFromDb = $studentCon->getAllStudents();
+        $id =  $row[0];
+        $bio =  $row[1];
+        $dateOfBirth =  $row[2];
+        $course =  $row[3];
+        $email =  $row[4];
+        $firstName =  $row[5];
+        $lastName =  $row[6];
+        $homeUniversityId = $row[7];
+        $upcomingUniversityId = $row[8];
+        $password = $row[9];
 
-foreach ($resultFromDb as $row) {
+        $studentsJson->$id = new stdClass();
+        $studentsJson->$id->id = $id;
+        $studentsJson->$id->bio = $bio;
+        $studentsJson->$id->dateOfBirth = $dateOfBirth;
+        $studentsJson->$id->course = $course;
+        $studentsJson->$id->email = $email;
+        $studentsJson->$id->firstName = $firstName;
+        $studentsJson->$id->lastName = $lastName;
+        $studentsJson->$id->homeUniversityId = $homeUniversityId;
+        $studentsJson->$id->upcomingUniversityId = $upcomingUniversityId;
+        $studentsJson->$id->password = $password;
+    }
 
-    $id =  $row[0];
-    $bio =  $row[1];
-    $dateOfBirth=  $row[2];
-    $course =  $row[3];
-    $email =  $row[4];
-    $firstName =  $row[5];
-    $lastName =  $row[6];
-    $homeUniversityId = $row[7];
-    $upcomingUniversityId = $row[8];
-    $password = $row[9];
-
-    $studentsJson->$id = new stdClass();
-    $studentsJson->$id->id = $id;
-    $studentsJson->$id->bio = $bio;
-    $studentsJson->$id->dateOfBirth = $dateOfBirth;
-    $studentsJson->$id->course = $course;
-    $studentsJson->$id->email = $email;
-    $studentsJson->$id->firstName = $firstName;
-    $studentsJson->$id->lastName = $lastName;
-    $studentsJson->$id->homeUniversityId = $homeUniversityId;
-    $studentsJson->$id->upcomingUniversityId = $upcomingUniversityId;
-    $studentsJson->$id->password = $password;
-
+    echo json_encode($studentsJson, JSON_PRETTY_PRINT);
+} else {
+    echo printErrorMessage('token is not valid', __LINE__);
 }
-
-echo json_encode($studentsJson, JSON_PRETTY_PRINT);
-

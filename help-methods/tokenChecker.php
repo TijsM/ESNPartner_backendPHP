@@ -1,9 +1,16 @@
 <?php
 
-require_once('StudentConnection.php');
+require_once(__DIR__.'/../mappers/studentConnection.php');
 
-function checkToken($id, $token){
+
+function checkToken(){
     $studentCon = new StudentConnection();
+
+    $headers = getallheaders();
+
+    $id = $headers['id'];
+    $token = $headers['token'];
+
     $answerFromDb = $studentCon->checkToken($id, $token);
     $tokenFromDb = $answerFromDb['jwtToken'];
     $expirationTimeFromDb = $answerFromDb['expirationTime'];
@@ -30,8 +37,5 @@ function checkToken($id, $token){
     }
 
     return $expirationAndTokenValid;
-
-    
-
 }
 
