@@ -1,6 +1,6 @@
 <?php
 
-require_once('Connection.php');
+require_once(__DIR__.'/../help-methods/connection.php');
 
 
 
@@ -65,11 +65,7 @@ class UniversityConnection
     {
         $db = new DB();
         $con = $db->connect();
-
-        echo $universityCredentials['cityId'];  
-        echo $universityCredentials['longtitude'];  
-        echo $universityCredentials['latitude'];  
-        echo $universityCredentials['cityName'];  
+ 
 
         if ($con) {
             $stmnt = $con->prepare("INSERT INTO `university`(`universityId`, `cityId`, `longtitude`, `latitude`, `name`) VALUES (null,:cityId,:longtitude, :latitude, :cityName)");

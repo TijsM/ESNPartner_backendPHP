@@ -1,6 +1,6 @@
 <?php
 
-require_once('UniversityConnection.php');
+require_once(__DIR__.'/mappers/universityConnection.php');
 
 $uniCon = new UniversityConnection();
 

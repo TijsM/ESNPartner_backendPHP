@@ -1,6 +1,6 @@
 <?php
 
-require_once('Connection.php');
+require_once(__DIR__.'/../help-methods/connection.php');
 
 class StudentConnection
 {

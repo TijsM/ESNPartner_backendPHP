@@ -1,6 +1,5 @@
 <?php
-
-require_once('StudentConnection.php');
+require_once(__DIR__.'/mappers/studentConnection.php');
 
 $studentCon = new StudentConnection();
 
