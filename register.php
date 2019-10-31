@@ -3,7 +3,7 @@
 require_once(__DIR__ . '/mappers/authenticationConnection.php');
 require_once(__DIR__ . '/mappers/studentConnection.php');
 require_once(__DIR__ . '/help-methods/sendErrorMessage.php');
-require_once(__DIR__ . '/help-methods/generateToken.php');
+require_once(__DIR__.'/help-methods/generateToken.php');
 
 $authCon = new AuthenticationConnection();
 $studCon = new StudentConnection();

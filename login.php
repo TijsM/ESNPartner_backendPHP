@@ -2,7 +2,7 @@
 
 require_once(__DIR__ . '/mappers/authenticationConnection.php');
 require_once(__DIR__ . '/help-methods/sendErrorMessage.php');
-require_once(__DIR__ . '/help-methods/generateToken.php.php');
+require_once(__DIR__ . '/help-methods/generateToken.php');
     
 $authCon = new AuthenticationConnection();
 
