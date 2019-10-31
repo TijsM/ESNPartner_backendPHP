@@ -16,7 +16,7 @@ class StudentConnection
             $stmt = $con->prepare("SELECT * FROM student");         // prepare the select statement
             $stmt->execute();                                       // execute the select statement
 
-            
+
             while ($row = $stmt->fetch()) {                         // loop through each row in the result from the database
                 array_push(
                     $studentsFromDatabase,
@@ -58,16 +58,16 @@ class StudentConnection
             $stmt = null;
             $db->disconnect($con);
 
-            return $result;
+                return $result;
         }
     }
 
-    function getLoginCredentials($email){
+    function getStudentByEmail($email){
         $db = new DB();
         $con = $db->connect();
 
         if($con){
-            $stmt = $con->prepare("SELECT email, password, studentId FROM student WHERE email = :email");
+            $stmt = $con->prepare("SELECT * FROM student WHERE email = :email");
             $stmt->bindParam(':email', $email);
             $stmt->execute();
 
@@ -80,45 +80,63 @@ class StudentConnection
         }
     }
 
-    function saveToken($email, $token, $expirationDate){
-        $db = new DB();
-        $con = $db->connect();
+    // function getLoginCredentials($email){
+    //     $db = new DB();
+    //     $con = $db->connect();
 
-        if($con){
-            $stmnt = $con->prepare("UPDATE student SET jwtToken = :token, expirationTime = :expirationDate WHERE email = :email");
-            $stmnt->bindParam(':token', $token);    
-            $stmnt->bindParam(':expirationDate', $expirationDate);    
-            $stmnt->bindParam(':email', $email);    
-        }
+    //     if($con){
+    //         $stmt = $con->prepare("SELECT email, password, studentId FROM student WHERE email = :email");
+    //         $stmt->bindParam(':email', $email);
+    //         $stmt->execute();
 
-        $stmnt->execute();
-        $result = $stmnt->fetch();
+    //         $result = $stmt->fetch();
 
-        $stmnt=null;
-        $db->disconnect($con);
+    //         $stmt = null;
+    //         $db->disconnect($con);
 
-        return $result;
-    }
+    //         return $result;
+    //     }
+    // }
 
-    function checkToken($id, $token){
-       
+    // function saveToken($email, $token, $expirationDate){
+    //     $db = new DB();
+    //     $con = $db->connect();
 
-        $db = new DB();
-        $con = $db->connect();
+    //     if($con){
+    //         $stmnt = $con->prepare("UPDATE student SET jwtToken = :token, expirationTime = :expirationDate WHERE email = :email");
+    //         $stmnt->bindParam(':token', $token);
+    //         $stmnt->bindParam(':expirationDate', $expirationDate);
+    //         $stmnt->bindParam(':email', $email);
+    //     }
 
-        if($con){
-            $stmnt = $con->prepare("SELECT jwtToken, expirationTime FROM student WHERE studentId = :id");
-            $stmnt->bindParam(':id', $id);
-        }
+    //     $stmnt->execute();
+    //     $result = $stmnt->fetch();
 
-        $stmnt->execute();
-        $result= $stmnt->fetch();
+    //     $stmnt=null;
+    //     $db->disconnect($con);
 
-        $stmnt=null;
-        $db->disconnect($con);
+    //     return $result;
+    // }
 
-        return $result;
-    }
+    // function checkToken($id, $token){
+
+
+    //     $db = new DB();
+    //     $con = $db->connect();
+
+    //     if($con){
+    //         $stmnt = $con->prepare("SELECT jwtToken, expirationTime FROM student WHERE studentId = :id");
+    //         $stmnt->bindParam(':id', $id);
+    //     }
+
+    //     $stmnt->execute();
+    //     $result= $stmnt->fetch();
+
+    //     $stmnt=null;
+    //     $db->disconnect($con);
+
+    //     return $result;
+    // }
 
     function addStudent($userCredentials){
 

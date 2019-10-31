@@ -1,14 +1,16 @@
 <?php
 
-require_once(__DIR__.'/mappers/studentConnection.php');
-
-$studentCon = new StudentConnection();
+require_once(__DIR__ . '/mappers/authenticationConnection.php');
+require_once(__DIR__ . '/help-methods/sendErrorMessage.php');
+require_once(__DIR__ . '/help-methods/generateToken.php.php');
+    
+$authCon = new AuthenticationConnection();
 
 $email = $_POST['email'];
 $password = $_POST['password'];
 
 
-$resultFromDb = $studentCon->getLoginCredentials($email);
+$resultFromDb = $authCon->getLoginCredentials($email);
 $passwordFromDb = $resultFromDb['password'];
 $studentId = $resultFromDb['studentId'];
 
@@ -19,46 +21,19 @@ $response = null;
 
 if ($passwordFromDb == $password) {
     $token =  generteToken();
-    
+
     $currentDateTime = new DateTime();
-    $expirationDate = $currentDateTime->modify('1 hour');
+    $expirationDate = $currentDateTime->modify('+1 hour');
 
-   $studentCon->saveToken ($email, $token, $expirationDate->format('Y-m-d H:i:s'));
+    $authCon->saveToken($email, $token, $expirationDate->format('Y-m-d H:i:s'));
 
-   $response = new stdClass();
-   $response->token = $token;
-   $response->expirationDate = $expirationDate->format('Y-m-d H:i:s');
-   $response->studentId = $studentId;
-    
-
+    $response = new stdClass();
+    $response->token = $token;
+    $response->expirationDate = $expirationDate->format('Y-m-d H:i:s');
+    $response->studentId = $studentId;
 } else {
-    $response = sendErrorMessage('credentials are wrong', __LINE__);
+    $response = printErrorMessage('credentials are wrong', __LINE__);
 }
 
 echo json_encode($response, JSON_PRETTY_PRINT);
 
-
-
-
-
-
-
-function generteToken()
-{
-    $token = bin2hex(random_bytes(65));
-    return $token;
-}
-
-
-function sendErrorMessage($sMessage,  $iLine)
-{
-
-    $error = new stdClass();
-    $error->status = 0;
-    $error->message = $sMessage;
-    $error->line = $iLine;
-
-    return $error;
-
-    exit;
-}
